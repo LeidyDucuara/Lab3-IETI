@@ -1,7 +1,6 @@
 package co.edu.escuelaing.arep.parte1.service;
 
 import co.edu.escuelaing.arep.parte1.data.User;
-import co.edu.escuelaing.arep.parte1.dto.UserDto;
 import java.util.List;
 
 public interface UserService {
