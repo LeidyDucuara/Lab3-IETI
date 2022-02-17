@@ -1,10 +1,17 @@
 package co.edu.escuelaing.ieti.usuario.data;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User {
 
+    @Id
     private String id;
     private String mane;
     private String lastName;
+    @Indexed(unique = true)
     private String email;
     private String createdAt;
 
@@ -24,7 +31,7 @@ public class User {
         this.id = id;
     }
 
-    public String getMane() {
+    public String getMane(){
         return mane;
     }
 
@@ -54,5 +61,13 @@ public class User {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void update(User userDto) {
+        id = userDto.getId();
+        mane = userDto.getMane();
+        lastName = userDto.getLastName();
+        email = userDto.getEmail();
+        createdAt = userDto.getCreatedAt();
     }
 }

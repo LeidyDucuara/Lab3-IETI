@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
 public class UserServiceImpl implements UserService {
 
     private final HashMap<String, User> hashMapUsers = new HashMap<>();
@@ -30,8 +29,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(String id) {
-        hashMapUsers.remove(id);
+    public boolean deleteById(String id) {
+        boolean exis;
+        try{
+            hashMapUsers.remove(id);
+            exis = true;
+        }catch (Exception e){
+            exis =false;
+        }
+        return exis;
     }
 
     @Override
