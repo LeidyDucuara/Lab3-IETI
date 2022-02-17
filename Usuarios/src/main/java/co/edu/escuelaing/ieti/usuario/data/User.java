@@ -1,8 +1,11 @@
 package co.edu.escuelaing.ieti.usuario.data;
 
+import jdk.jfr.Name;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 @Document
 public class User {
@@ -13,9 +16,9 @@ public class User {
     private String lastName;
     @Indexed(unique = true)
     private String email;
-    private String createdAt;
+    private Date createdAt;
 
-    public User(String id, String mane, String lastName, String email, String createdAt) {
+    public User(String id, String mane, String lastName, String email, Date createdAt) {
         this.id = id;
         this.mane = mane;
         this.lastName = lastName;
@@ -55,11 +58,11 @@ public class User {
         this.email = email;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

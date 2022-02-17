@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -50,4 +51,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.ordinal()).body(false);
         }
     }
+
+    @GetMapping( "/{text}" )
+    public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike( @PathVariable String text ) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNameOrLastNameLike(text));
+    }
+
+    @GetMapping( "/{Date}" )
+    public ResponseEntity<List<User>> findUsersCreatedAfter( @PathVariable Date startDate ) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersCreatedAfter(startDate));
+    }
+
+
 }

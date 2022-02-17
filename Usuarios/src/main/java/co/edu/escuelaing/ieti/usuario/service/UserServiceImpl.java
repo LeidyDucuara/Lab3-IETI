@@ -4,6 +4,7 @@ import co.edu.escuelaing.ieti.usuario.data.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,5 +44,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User userDto, String userId) {
         return hashMapUsers.put(userId,userDto);
+    }
+
+    @Override
+    public List<User> findUsersWithNameOrLastNameLike(String queryText) {
+        return null;
+    }
+
+    @Override
+    public List<User> findUsersCreatedAfter(Date startDate) {
+        return null;
     }
 }
