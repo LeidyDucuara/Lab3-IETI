@@ -52,12 +52,12 @@ public class UserController {
         }
     }
 
-    @GetMapping( "/{text}" )
+    @GetMapping( "/UsernOls/{text}" )
     public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike( @PathVariable String text ) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNameOrLastNameLike(text));
     }
 
-    @GetMapping( "/{Date}" )
+    @GetMapping( "/Userdate//{Date}" )
     public ResponseEntity<List<User>> findUsersCreatedAfter( @PathVariable Date startDate ) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersCreatedAfter(startDate));
     }
