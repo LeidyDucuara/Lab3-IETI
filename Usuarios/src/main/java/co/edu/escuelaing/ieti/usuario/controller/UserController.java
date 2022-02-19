@@ -1,6 +1,7 @@
 package co.edu.escuelaing.ieti.usuario.controller;
 
 import co.edu.escuelaing.ieti.usuario.data.User;
+import co.edu.escuelaing.ieti.usuario.dto.UserDto;
 import co.edu.escuelaing.ieti.usuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
@@ -31,14 +31,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 
+    @GetMapping( "/emai/{id}" )
+    public ResponseEntity<User> findByEmail( @PathVariable String email ) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
+    }
 
     @PostMapping
-    public ResponseEntity<User> create( @RequestBody User userDto ) {
+    public ResponseEntity<User> create( @RequestBody UserDto userDto ) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(userDto));
     }
 
     @PutMapping( "/{id}" )
-    public ResponseEntity<User> update( @RequestBody User userDto, @PathVariable String id ) {
+    public ResponseEntity<User> update( @RequestBody UserDto userDto, @PathVariable String id ) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.update(userDto,id));
     }
 

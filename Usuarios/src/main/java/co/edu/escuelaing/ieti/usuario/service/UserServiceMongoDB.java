@@ -1,6 +1,7 @@
 package co.edu.escuelaing.ieti.usuario.service;
 
 import co.edu.escuelaing.ieti.usuario.data.User;
+import co.edu.escuelaing.ieti.usuario.dto.UserDto;
 import co.edu.escuelaing.ieti.usuario.repository.UserRepository;
 import co.edu.escuelaing.ieti.usuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class UserServiceMongoDB implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        return userRepository.save(user);
+    public User create(UserDto userDto) {
+        return userRepository.save(new User(userDto));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class UserServiceMongoDB implements UserService {
     }
 
     @Override
-    public User update(User userDto, String userId) {
+    public User update(UserDto userDto, String userId) {
         if(userRepository.existsById(userId)){
             User user = userRepository.findById(userId).get();
             user.update(userDto);
@@ -64,5 +65,10 @@ public class UserServiceMongoDB implements UserService {
     @Override
     public List<User> findUsersCreatedAfter(Date startDate) {
         return userRepository.findUsersCreatedAfter(startDate);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

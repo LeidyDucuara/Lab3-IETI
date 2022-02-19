@@ -1,11 +1,17 @@
 package co.edu.escuelaing.ieti.usuario.data;
 
+import co.edu.escuelaing.ieti.usuario.dto.UserDto;
 import jdk.jfr.Name;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.util.Date;
+import java.util.*;
+
+enum userRoles{
+    ADMIN, USER
+}
 
 @Document
 public class User {
@@ -16,14 +22,18 @@ public class User {
     private String lastName;
     @Indexed(unique = true)
     private String email;
+    private String passwordHash;
+    private List<userRoles> roles;
     private Date createdAt;
 
-    public User(String id, String mane, String lastName, String email, Date createdAt) {
-        this.id = id;
-        this.mane = mane;
-        this.lastName = lastName;
-        this.email = email;
-        this.createdAt = createdAt;
+
+    public User(UserDto userDto) {
+        this.mane = userDto.getMane();
+        this.lastName = userDto.getLastName();
+        this.email = userDto.getEmail();
+        this.createdAt = new Date();
+        roles = new ArrayList<>(Collections.singleton(userRoles.USER));
+        passwordHash = BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt());
     }
 
     public String getId() {
@@ -66,11 +76,20 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public void update(User userDto) {
-        id = userDto.getId();
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public List<userRoles> getRoles() {
+        return roles;
+    }
+
+    public void update(UserDto userDto) {
         mane = userDto.getMane();
         lastName = userDto.getLastName();
         email = userDto.getEmail();
-        createdAt = userDto.getCreatedAt();
+        if(userDto.getPassword() != null){
+            this.passwordHash = BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt());
+        }
     }
 }

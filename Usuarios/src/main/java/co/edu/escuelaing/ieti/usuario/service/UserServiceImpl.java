@@ -1,6 +1,7 @@
 package co.edu.escuelaing.ieti.usuario.service;
 
 import co.edu.escuelaing.ieti.usuario.data.User;
+import co.edu.escuelaing.ieti.usuario.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,23 +11,24 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private final HashMap<String, User> hashMapUsers = new HashMap<>();
+    private final HashMap<String, UserDto> hashMapUsers = new HashMap<>();
 
     @Override
-    public User create(User user) {
-        return hashMapUsers.put(user.getId(),user);
+    public User create(UserDto userDto) {
+        //hashMapUsers.put(user.getId(),user);
+        return null;
     }
 
     @Override
     public User findById(String id) {
-        User user = hashMapUsers.get(id);
-        return user;
+        //User user = hashMapUsers.get(id);
+        return null;
     }
 
     @Override
     public List<User> getAll() {
-        ArrayList<User> users = new ArrayList<User>(hashMapUsers.values());
-        return  users;
+        //ArrayList<User> users = new ArrayList<User>(hashMapUsers.values());
+        return  null;
     }
 
     @Override
@@ -42,8 +44,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User userDto, String userId) {
-        return hashMapUsers.put(userId,userDto);
+    public User update(UserDto userDto, String userId) {
+        //hashMapUsers.put(userId,userDto);
+        return null;
     }
 
     @Override
@@ -53,6 +56,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findUsersCreatedAfter(Date startDate) {
+        return null;
+    }
+
+    @Override
+    public User findByEmail(String email) {
         return null;
     }
 }
