@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping( "/{id}" )
+    @RolesAllowed("ADMIN")
     public ResponseEntity<Boolean> delete( @PathVariable String id ) {
         try {
             userService.deleteById(id);
@@ -61,7 +63,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNameOrLastNameLike(text));
     }
 
-    @GetMapping( "/Userdate//{Date}" )
+    @GetMapping( "/Userdate/{Date}" )
     public ResponseEntity<List<User>> findUsersCreatedAfter( @PathVariable Date startDate ) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersCreatedAfter(startDate));
     }

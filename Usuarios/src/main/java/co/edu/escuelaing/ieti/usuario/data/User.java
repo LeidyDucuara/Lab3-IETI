@@ -1,7 +1,6 @@
 package co.edu.escuelaing.ieti.usuario.data;
 
 import co.edu.escuelaing.ieti.usuario.dto.UserDto;
-import jdk.jfr.Name;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,9 +25,12 @@ public class User {
     private List<userRoles> roles;
     private Date createdAt;
 
+    public User(){
+
+    }
 
     public User(UserDto userDto) {
-        this.mane = userDto.getMane();
+        this.mane = userDto.getName();
         this.lastName = userDto.getLastName();
         this.email = userDto.getEmail();
         this.createdAt = new Date();
@@ -84,12 +86,7 @@ public class User {
         return roles;
     }
 
-    public void update(UserDto userDto) {
-        mane = userDto.getMane();
-        lastName = userDto.getLastName();
-        email = userDto.getEmail();
-        if(userDto.getPassword() != null){
-            this.passwordHash = BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt());
-        }
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }

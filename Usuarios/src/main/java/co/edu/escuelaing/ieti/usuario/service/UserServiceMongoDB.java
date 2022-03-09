@@ -3,8 +3,8 @@ package co.edu.escuelaing.ieti.usuario.service;
 import co.edu.escuelaing.ieti.usuario.data.User;
 import co.edu.escuelaing.ieti.usuario.dto.UserDto;
 import co.edu.escuelaing.ieti.usuario.repository.UserRepository;
-import co.edu.escuelaing.ieti.usuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -48,13 +48,14 @@ public class UserServiceMongoDB implements UserService {
 
     @Override
     public User update(UserDto userDto, String userId) {
-        if(userRepository.existsById(userId)){
-            User user = userRepository.findById(userId).get();
-            user.update(userDto);
-            userRepository.save(user);
-            return user;
+        User userUp = userRepository.findById(userId).get();
+        userUp.setMane(userDto.getName());
+        userUp.setLastName(userDto.getLastName());
+        userUp.setEmail(userDto.getEmail());
+        if(userDto.getPassword() != null){
+            userUp.setPasswordHash(BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt()));
         }
-        return null;
+        return userRepository.save(userUp);
     }
 
     @Override

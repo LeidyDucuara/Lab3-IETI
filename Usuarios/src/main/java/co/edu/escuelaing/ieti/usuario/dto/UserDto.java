@@ -2,24 +2,33 @@ package co.edu.escuelaing.ieti.usuario.dto;
 
 public class UserDto {
 
-    private String mane;
+    private String name;
     private String lastName;
     private String email;
     private String password;
 
     public UserDto(String mane, String lastName, String email, String password) {
-        this.mane = mane;
+        this.name = mane;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public String getMane() {
-        return mane;
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 
-    public void setMane(String mane) {
-        this.mane = mane;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
